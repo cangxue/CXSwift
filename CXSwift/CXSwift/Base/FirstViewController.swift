@@ -61,11 +61,40 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             vc.title = itemName
             navigationController?.pushViewController(vc, animated: true)
         }
+        
+//        print(sortMethod(3))
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    func sortMethod(_ number: Int) -> [String] {
+        if number <= 0 {
+        return []
+        }
+        if number == 1 {
+        return ["1/1"]
+        }
+        var sortedArray:[String] = []
+        var molecularArray:[Int] = []
+        var denominatorArray = [number]
+        for denominator in 1...number {
+        molecularArray.append(denominator)
+        denominatorArray.append(number - denominator)
+        }
+        for index in 0..<number - 1 {
+        let molecular = molecularArray[index]
+        for num in 0..<number - 1 {
+        let denominator = denominatorArray[number - num]
+        guard molecular <= denominator else { continue }
+        let numStr = "\(molecular)\\(denominator)"
+        sortedArray.append(numStr)
+        }
+        }
+        return sortedArray
+    }
+
     
 }
 
